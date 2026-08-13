@@ -1,2 +1,3 @@
 GET  https://f0n865e7ed.execute-api.ap-southeast-1.amazonaws.com/prod/spaces
 ###
+POST  https://f0n865e7ed.execute-api.ap-southeast-1.amazonaws.com/prod/spaces

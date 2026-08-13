@@ -13,25 +13,34 @@ interface LambdaStackProps extends StackProps {
 }
 
 export class LambdaStack extends Stack {
-    public readonly helloLambda: LambdaIntegration;
+    public readonly spacesLambda: LambdaIntegration;
 
     constructor(scope: Construct, id: string, props: LambdaStackProps) {
         super(scope, id, props);
 
-        const helloLambda = new NodejsFunction(this, 'HelloLambda', {
+        // const helloLambda = new NodejsFunction(this, 'HelloLambda', {
+        //     runtime: Runtime.NODEJS_24_X,
+        //     entry: path.join(__dirname, '..', '..', 'services', 'hello.ts'),
+        //     handler: 'handler',
+        //     environment: {
+        //         SPACES_TABLE_NAME: props.spacesTable.tableName || '',
+        //     }
+        // });
+
+        const spacesLambda = new NodejsFunction(this, 'SpacesLambda', {
             runtime: Runtime.NODEJS_24_X,
-            entry: path.join(__dirname, '..', '..', 'services', 'hello.ts'),
+            entry: path.join(__dirname, '..', '..', 'services', 'spaces', 'handler.ts'),
             handler: 'handler',
             environment: {
                 SPACES_TABLE_NAME: props.spacesTable.tableName || '',
             }
         });
 
-        helloLambda.addToRolePolicy(new PolicyStatement({
-            effect: Effect.ALLOW,
-            actions: ['s3:ListBuckets', 's3:ListAllMyBuckets'],
-            resources: ['*'],
-        }));
+        // helloLambda.addToRolePolicy(new PolicyStatement({
+        //     effect: Effect.ALLOW,
+        //     actions: ['s3:ListBuckets', 's3:ListAllMyBuckets'],
+        //     resources: ['*'],
+        // }));
 
         // const helloLambda =new LambdaFunction(this, 'HelloLambda', {
         //     runtime: Runtime.NODEJS_24_X,
@@ -42,6 +51,6 @@ export class LambdaStack extends Stack {
         //     }
         // });
 
-        this.helloLambda = new LambdaIntegration(helloLambda);
+        this.spacesLambda = new LambdaIntegration(spacesLambda);
     }
 }
