@@ -1,20 +1,21 @@
 GET  https://grkgn8fd52.execute-api.ap-southeast-1.amazonaws.com/prod/spaces
 ###
 POST  https://grkgn8fd52.execute-api.ap-southeast-1.amazonaws.com/prod/spaces
-content-type: application/json
+Content-Type: application/json
 
 {
-    "location": "Hong Kong"
+    "location": "Macau",
+    "name": "PATCH Test"
 }
 ###
-GET https://grkgn8fd52.execute-api.ap-southeast-1.amazonaws.com/prod/spaces?id=7f3214a2-c506-4aca-8149-72ef869dfc8c
+GET https://grkgn8fd52.execute-api.ap-southeast-1.amazonaws.com/prod/spaces?id=29e88412-b57a-47df-8eb6-f30b4c598097
 ###
-PUT  https://grkgn8fd52.execute-api.ap-southeast-1.amazonaws.com/prod/spaces?id=7f3214a2-c506-4aca-8149-72ef869dfc8c
-content-type: application/json
+PUT  https://grkgn8fd52.execute-api.ap-southeast-1.amazonaws.com/prod/spaces?id=29e88412-b57a-47df-8eb6-f30b4c598097
+Content-Type: application/json
 
 {
-    
+    "name": "Neighbor of Hong Kong",    
     "location": "Macau"
 }
 ###
-DELETE https://grkgn8fd52.execute-api.ap-southeast-1.amazonaws.com/prod/spaces?id=0d0464c8-fdb2-4a7a-9142-b3a78993bfcf
+DELETE https://grkgn8fd52.execute-api.ap-southeast-1.amazonaws.com/prod/spaces?id=29e88412-b57a-47df-8eb6-f30b4c598097
