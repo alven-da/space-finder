@@ -1,19 +1,43 @@
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
+
+import { postSpaces } from './PostSpaces';
+import { getSpaces } from './GetSpaces';
+import { updateSpaces } from './UpdateSpaces';
+import { deleteSpaces } from './DeleteSpaces';
+
+
+const ddbClient = new DynamoDBClient({});
 
 async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
     
     let message: string = '';
 
-    switch (event.httpMethod) {
-        case 'GET':
-            message = `Hello from GET`;
-            break;
-        case 'POST':
-            message = `Hello from POST`;
-            break;
-        default:
-            message = `Hello from default method`;
+    try {
+        switch (event.httpMethod) {
+            case 'GET':
+                return await getSpaces(event, ddbClient);
+            case 'POST':
+                const response = await postSpaces(event, ddbClient);
+                return response;
+            case 'PUT':
+                // Implement the logic for PUT method here
+                return await updateSpaces(event, ddbClient);
+            case 'DELETE':
+                // Implement the logic for DELETE method here
+                return await deleteSpaces(event, ddbClient);
+            default:
+                message = `Hello from default method`;
+        }
+    } catch (error) {
+        console.error('Error processing request:', error);
+
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ message: 'Internal Server Error' }),
+        };
     }
+    
    
     const response: APIGatewayProxyResult = {
         statusCode: 200,

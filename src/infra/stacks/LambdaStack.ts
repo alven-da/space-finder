@@ -36,6 +36,12 @@ export class LambdaStack extends Stack {
             }
         });
 
+        spacesLambda.addToRolePolicy(new PolicyStatement({
+            effect: Effect.ALLOW,
+            actions: ['dynamodb:PutItem'],
+            resources: [props.spacesTable.tableArn],
+        }));
+
         // helloLambda.addToRolePolicy(new PolicyStatement({
         //     effect: Effect.ALLOW,
         //     actions: ['s3:ListBuckets', 's3:ListAllMyBuckets'],

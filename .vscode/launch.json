@@ -16,7 +16,8 @@
                 "${relativeFile}"
             ],
             "env": {
-                "AWS_REGION": "eu-west-1"
+                "AWS_REGION": "ap-southeast-1",
+                "SPACES_TABLE_NAME": "SpacesTable-02a08f76e257"
             }
         }
     ]
