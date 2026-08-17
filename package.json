@@ -25,9 +25,13 @@
     "uuid": "^14.0.1"
   },
   "dependencies": {
+    "@aws-amplify/auth": "^6.20.0",
+    "@aws-sdk/client-cognito-identity": "^3.1111.0",
     "@aws-sdk/client-dynamodb": "^3.1109.0",
     "@aws-sdk/client-s3": "^3.1109.0",
+    "@aws-sdk/credential-providers": "^3.1111.0",
     "@aws-sdk/lib-dynamodb": "^3.1110.0",
-    "@aws-sdk/util-dynamodb": "^3.996.8"
+    "@aws-sdk/util-dynamodb": "^3.996.8",
+    "aws-amplify": "^6.20.0"
   }
 }

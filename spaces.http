@@ -1,6 +1,10 @@
-GET  https://grkgn8fd52.execute-api.ap-southeast-1.amazonaws.com/prod/spaces
+@url = https://4vwv90ojac.execute-api.ap-southeast-1.amazonaws.com/prod/spaces
+@token = eyJraWQiOiIvZXZxVnJTUDVwdGZTcTZ5dEszYzJqVnJUdU5ZZVZGT2tUc3lCUUpCK2RRPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIyOWZhNDUxYy1mMGIxLTcwOGItYTU0NC1jODU1MDAzZGM5YjciLCJjb2duaXRvOmdyb3VwcyI6WyJhZG1pbnMiXSwiaXNzIjoiaHR0cHM6Ly9jb2duaXRvLWlkcC5hcC1zb3V0aGVhc3QtMS5hbWF6b25hd3MuY29tL2FwLXNvdXRoZWFzdC0xX1huQ0FvVkZpQiIsImNvZ25pdG86dXNlcm5hbWUiOiJzYXR1cm9zIiwib3JpZ2luX2p0aSI6IjJhMDhkMzg2LTA2MGItNDExNy04NjIxLWYyZTBkY2Q3MjI5ZiIsImF1ZCI6IjNkYjU1N2UyNnNqcGtqYmFza2wyc212a2E2IiwiZXZlbnRfaWQiOiI1YjQ0NGYwMy1iZmJkLTQ1NjItOWM4OS0wNGRlM2VhNDU0NzIiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTc4NjY5OTUxMywiZXhwIjoxNzg2NzAzMTEzLCJpYXQiOjE3ODY2OTk1MTMsImp0aSI6IjY5NDM5MTE5LTVhMWItNDhiYS1iOTU5LTQ4NGE2MDcyNWNmYSJ9.j8GIqld92A9N9SzWtOFEURWXvcu3rETTLl3Bep8uDUtD7EzfFjcnw69vpYT_9gncntj1xG61e3ScJ5OYFou4X3aR7ECF-_FUH3Cqn2NP5q3ZceDEiSNRbflMiFcpMA204A3kja9vUXVIajkwxTjRkmoFTkrkTNJeubuc743vWgaqOfXU9vfJfihSfy4Bu_kuXuH0ewehfakdODsOIqTcVGRBdExUlRao99kdRYRXlLSZs8Bc2WIbJpJOUXniDFaChQfMMp9JY-Gf25H-J_vVAlAeHavn84lR8F5_THZlGHT8hChPx6OlSY3_BduWTGf_9C0uFKMhiKaASITvwNhGLw
+
+GET  {{url}}
+Authorization: {{token}}
 ###
-POST  https://grkgn8fd52.execute-api.ap-southeast-1.amazonaws.com/prod/spaces
+POST  {{url}}
 Content-Type: application/json
 
 {
@@ -8,9 +12,9 @@ Content-Type: application/json
     "name": "PATCH Test"
 }
 ###
-GET https://grkgn8fd52.execute-api.ap-southeast-1.amazonaws.com/prod/spaces?id=29e88412-b57a-47df-8eb6-f30b4c598097
+GET {{url}}?id=29e88412-b57a-47df-8eb6-f30b4c598097
 ###
-PUT  https://grkgn8fd52.execute-api.ap-southeast-1.amazonaws.com/prod/spaces?id=29e88412-b57a-47df-8eb6-f30b4c598097
+PUT  {{url}}?id=29e88412-b57a-47df-8eb6-f30b4c598097
 Content-Type: application/json
 
 {
@@ -18,4 +22,5 @@ Content-Type: application/json
     "location": "Macau"
 }
 ###
-DELETE https://grkgn8fd52.execute-api.ap-southeast-1.amazonaws.com/prod/spaces?id=29e88412-b57a-47df-8eb6-f30b4c598097
+DELETE {{url}}?id=29e88412-b57a-47df-8eb6-f30b4c598097
+Authorization: {{token}}
