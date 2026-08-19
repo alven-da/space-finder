@@ -1,5 +1,5 @@
 import { Stack, StackProps, } from 'aws-cdk-lib'
-import { AuthorizationType, CognitoUserPoolsAuthorizer, LambdaIntegration, MethodOptions, RestApi } from 'aws-cdk-lib/aws-apigateway';
+import { AuthorizationType, CognitoUserPoolsAuthorizer, Cors, LambdaIntegration, MethodOptions, ResourceOptions, RestApi } from 'aws-cdk-lib/aws-apigateway';
 import { IUserPool } from 'aws-cdk-lib/aws-cognito';
 import { Construct } from 'constructs';
 
@@ -26,11 +26,37 @@ export class ApiStack extends Stack {
             authorizationType: AuthorizationType.COGNITO,
             authorizer: {
                 authorizerId: authorizer.authorizerId
+            },
+            
+        };
+
+        const optionsWithCors: ResourceOptions = {
+            defaultCorsPreflightOptions: {
+                allowOrigins: Cors.ALL_ORIGINS,
+                allowMethods: Cors.ALL_METHODS,
+                // allowHeaders: ['Content-Type', 'Authorization', 'X-Amz-Date', 'X-Api-Key'],
             }
         };
 
-        const spacesResource = api.root.addResource('spaces');
+        const spacesResource = api.root.addResource('spaces', optionsWithCors);
 
+        // api.addGatewayResponse('UnauthorizedResponse', {
+        //     type: GatewayResponseType.UNAUTHORIZED,
+        //     responseHeaders: {
+        //         'Access-Control-Allow-Origin': "'*'",
+        //         'Access-Control-Allow-Headers': "'*'",
+        //     },
+        // });
+
+        // api.addGatewayResponse('AccessDeniedResponse', {
+        //     type: GatewayResponseType.ACCESS_DENIED,
+        //     responseHeaders: {
+        //         'Access-Control-Allow-Origin': "'*'",
+        //         'Access-Control-Allow-Headers': "'*'",
+        //     },
+        // });
+
+        
         spacesResource.addMethod('GET', props.spacesLambdaIntegration, optionsWithAuth);
         spacesResource.addMethod('POST', props.spacesLambdaIntegration, optionsWithAuth);
         spacesResource.addMethod('PUT', props.spacesLambdaIntegration, optionsWithAuth);

@@ -6,30 +6,46 @@ import { getSpaces } from './GetSpaces';
 import { updateSpaces } from './UpdateSpaces';
 import { deleteSpaces } from './DeleteSpaces';
 import { JsonError, MissingFieldError } from '../shared/Validator';
+import { addCorsHeader } from '../shared/Utils';
+import { captureAWSv3Client, getSegment } from 'aws-xray-sdk-core';
 
 
-const ddbClient = new DynamoDBClient({});
+const ddbClient = captureAWSv3Client(new DynamoDBClient({}));
 
 async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
     
     let message: string = '';
+    let response: APIGatewayProxyResult = {} as APIGatewayProxyResult;
+
+    const subSeg = getSegment()?.addNewSubsegment('MyLongCall')
+    await new Promise(resolve =>{ setTimeout(resolve, 3000)});
+    subSeg?.close();
+
+    const subSeg2 = getSegment()?.addNewSubsegment('MyLongCall')
+    await new Promise(resolve =>{ setTimeout(resolve, 500)})
+    subSeg2?.close();
 
     try {
         switch (event.httpMethod) {
             case 'GET':
-                return await getSpaces(event, ddbClient);
+                response = await getSpaces(event, ddbClient);
+                break;
             case 'POST':
-                const response = await postSpaces(event, ddbClient);
-                return response;
+                response = await postSpaces(event, ddbClient);
+                break;
             case 'PUT':
                 // Implement the logic for PUT method here
-                return await updateSpaces(event, ddbClient);
+                response = await updateSpaces(event, ddbClient);
+                break;
             case 'DELETE':
                 // Implement the logic for DELETE method here
-                return await deleteSpaces(event, ddbClient);
+                response = await deleteSpaces(event, ddbClient);
+                break;
             default:
                 message = `Hello from default method`;
         }
+
+        response = addCorsHeader(response);
     } catch (error) {
         if (error instanceof MissingFieldError) {
             return {
@@ -51,11 +67,7 @@ async function handler(event: APIGatewayProxyEvent, context: Context): Promise<A
         };
     }
     
-   
-    const response: APIGatewayProxyResult = {
-        statusCode: 200,
-        body: JSON.stringify({ message }),
-    };
+
 
     return response;
 }

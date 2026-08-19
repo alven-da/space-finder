@@ -1,7 +1,7 @@
 import path from 'path';
 
-import { Stack, StackProps, } from 'aws-cdk-lib'
-import { Runtime } from 'aws-cdk-lib/aws-lambda';
+import { Duration, Stack, StackProps, } from 'aws-cdk-lib'
+import { Runtime, Tracing } from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
 import { LambdaIntegration } from 'aws-cdk-lib/aws-apigateway';
 import { ITable } from 'aws-cdk-lib/aws-dynamodb';
@@ -33,7 +33,9 @@ export class LambdaStack extends Stack {
             handler: 'handler',
             environment: {
                 SPACES_TABLE_NAME: props.spacesTable.tableName || '',
-            }
+            },
+            tracing: Tracing.ACTIVE,
+            timeout: Duration.minutes(1)
         });
 
         spacesLambda.addToRolePolicy(new PolicyStatement({
